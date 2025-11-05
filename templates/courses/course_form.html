@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Create a New Course{% endblock %}
+
+{% block content %}
+    <h1>Create a New Course</h1>
+    <p>Please fill out the details for the new course.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Course</button>
+    </form>
+    <a href="{% url 'course_list' %}">Cancel</a>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Courses{% endblock %}
+
+{% block content %}
+{# ======================================================= #}
+{# ====           START: ADD THIS CONTAINER           ==== #}
+{# ======================================================= #}
+<div class="container fade-in">
+
+    <h1>Find a Course</h1>
+
+    {# Show button only to logged-in teachers and use the correct .btn class #}
+    {% if user.is_authenticated and user.profile.user_type == 'teacher' %}
+        <p><a href="{% url 'course_create' %}" class="btn">Add New Course</a></p>
+    {% endif %}
+
+    <p>Explore our undergraduate and postgraduate degree programs.</p>
+
+    <hr>
+
+    <div class="card-grid" style="margin-top: 2rem;">
+        {% for course in courses %}
+            {# Re-styling the list as attractive cards #}
+            <div class="card">
+                <div class="card-content">
+                    <h3><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h3>
+                    <p><strong>Department:</strong> {{ course.department.name }}</p>
+                    <p><strong>Level:</strong> {{ course.get_level_display }}</p>
+                    <a href="{{ course.get_absolute_url }}" class="card-link" style="margin-top: 1rem;">View Details &rarr;</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No courses have been added yet.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{# ======================================================= #}
+{# ====            END: CLOSE THE CONTAINER           ==== #}
+{# ======================================================= #}
+{% endblock %}
+
+

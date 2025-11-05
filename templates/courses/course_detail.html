@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ course.title }} ({{ course.code }})</h1>
+    <p><strong>Department:</strong> {{ course.department.name }} | <strong>Level:</strong> {{ course.get_level_display }}</p>
+
+    {# --- Action Buttons --- #}
+    {% if user.is_authenticated %}
+        {% if user.profile.user_type == 'student' and user.profile not in course.students.all %}
+            <a href="{% url 'enroll_in_course' course.pk %}" class="button">Enroll Now</a>
+        {% elif user.profile in course.students.all %}
+            <p style="color:green;"><strong>You are enrolled in this course.</strong></p>
+        {% endif %}
+        
+        {% if user.profile.user_type == 'teacher' and user.profile not in course.teachers.all %}
+             <a href="{% url 'assign_teacher' course.pk %}" class="button">Assign Myself to Teach</a>
+        {% endif %}
+    {% endif %}
+
+    <h2>Overview</h2>
+    <p>{{ course.overview|linebreaks }}</p>
+
+    <h2>Entry Requirements</h2>
+    <p>{{ course.entry_requirements|linebreaks }}</p>
+    <hr>
+    
+    {# --- Teacher and Student Lists --- #}
+    <h3>Taught by:</h3>
+    <ul>
+    {% for teacher_profile in course.teachers.all %}
+        <li>{{ teacher_profile.user.get_full_name }} ({{ teacher_profile.user.username }})</li>
+    {% empty %}
+        <li>No teachers are currently assigned to this course.</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Enrolled Students:</h3>
+    <ul>
+    {% for student_profile in course.students.all %}
+        <li>{{ student_profile.user.get_full_name }} ({{ student_profile.user.username }})</li>
+    {% empty %}
+        <li>No students are currently enrolled.</li>
+    {% endfor %}
+    </ul>
+
+
+    <a href="{% url 'course_list' %}">&larr; Back to all courses</a>
+{% endblock %}

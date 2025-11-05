@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Faculty & Staff Directory{% endblock %}
+
+{% block content %}
+    <h1>Faculty & Staff Directory</h1>
+    <p>Browse our directory of esteemed faculty and staff members.</p>
+    
+    <div class="card-grid" style="margin-top: 2rem;">
+        {% for profile in teacher_profiles %}
+            <div class="card">
+                <img src="{{ profile.profile_picture.url }}" alt="Photo of {{ profile.user.get_full_name }}">
+                <div class="card-content">
+                    <h3>{{ profile.user.get_full_name|default:profile.user.username }}</h3>
+                    <p>{{ profile.bio|truncatewords:15 }}</p>
+                    <a href="{% url 'profile_detail' profile.user.username %}" class="card-link">View Full Profile</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No faculty members have been registered yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

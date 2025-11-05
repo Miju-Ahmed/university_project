@@ -1,0 +1,229 @@
+/* static/css/main.css - MASTER VERSION */
+
+/* --- 1. Import Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@400;500;700&display=swap');
+
+/* --- 2. CSS Variables for a Professional Color Palette --- */
+:root {
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Lora', serif;
+    --color-primary: #CC0000;
+    --color-secondary: #002147;
+    --color-dark: #222222;
+    --color-light: #ffffff;
+    --color-grey-light: #f8f9fa;
+    --color-grey-medium: #e9ecef;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --border-radius: 8px;
+}
+
+/* --- 3. Base & Global Styles --- */
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.7;
+    background-color: var(--color-light);
+    color: var(--color-dark); /* Explicitly set dark text color for the whole body */
+    margin: 0;
+    padding-top: 80px; /* Offset for sticky nav */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+/* --- 4. Navigation Bar --- */
+.main-nav {
+    position: sticky; top: 0; width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-grey-medium);
+    z-index: 1000; height: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; box-sizing: border-box;
+}
+.nav-left a, .nav-right a {
+    color: var(--color-secondary); margin: 0 1rem;
+    font-weight: 500; position: relative;
+}
+.nav-left a::after {
+    content: ''; position: absolute; width: 0; height: 2px;
+    bottom: -5px; left: 50%; transform: translateX(-50%);
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+.nav-left a:hover::after { width: 100%; }
+
+/* --- 5. Hero Section --- */
+.hero-section {
+    position: relative;
+    height: calc(100vh - 80px); /* Full height minus nav */
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; color: var(--color-light);
+    text-align: left;
+}
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+.hero-content {
+    position: relative; z-index: 1; max-width: 600px; padding: 3rem;
+}
+.hero-content h1 {
+    font-size: 3.8rem; color: var(--color-light);
+    margin-bottom: 1rem; line-height: 1.2;
+}
+
+/* --- 6. Buttons --- */
+.btn {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-light) !important;
+    padding: 14px 35px;
+    text-decoration: none !important;
+    font-weight: 700; border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-primary);
+}
+.btn:hover {
+    background: var(--color-light);
+    color: var(--color-primary) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- 7. Card Grid --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.card {
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    overflow: hidden; box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    display: flex; flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+.card-image-wrapper { overflow: hidden; height: 220px; }
+.card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.card:hover img { transform: scale(1.05); }
+.card-content { padding: 1.5rem; flex-grow: 1; }
+.card-content h3 { margin-top: 0; }
+.card-link { color: var(--color-primary); font-weight: bold; }
+
+/* --- 8. Forms --- */
+.form-container {
+    max-width: 500px; margin: 2rem auto; padding: 2.5rem;
+    background: var(--color-light); border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.form-container p { margin-bottom: 1.5rem; }
+.form-container label {
+    display: block; margin-bottom: 0.5rem;
+    font-weight: 500; font-size: 0.9rem;
+}
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="url"],
+.form-container textarea {
+    width: 100%; padding: 12px;
+    border: 1px solid var(--color-grey-medium);
+    border-radius: 5px; box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-container input:focus, .form-container textarea:focus {
+    outline: none; border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+.form-container button[type="submit"] {
+    width: 100%; padding: 14px; font-weight: bold;
+    color: var(--color-light); background: var(--color-secondary);
+    border: none; border-radius: 5px; cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.form-container button[type="submit"]:hover { background: var(--color-primary); }
+.form-container .errorlist {
+    list-style-type: none; padding: 0; color: var(--color-primary);
+    font-size: 0.9rem; margin-top: -1rem; margin-bottom: 1rem;
+}
+
+/* --- 9. Attractive Registration Form Styles --- */
+.form-fieldset {
+    border: 1px solid var(--color-grey-medium);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem; margin-bottom: 1.5rem;
+}
+.form-fieldset legend {
+    font-family: var(--font-secondary); font-size: 1.2rem;
+    font-weight: bold; color: var(--color-secondary); padding: 0 0.5rem;
+}
+.form-help-text {
+    display: block; font-size: 0.8rem;
+    color: #777; margin-top: 0.5rem;
+}
+.radio-group { display: flex; gap: 1rem; margin-top: 0.5rem; }
+.radio-choice input[type="radio"] { display: none; }
+.radio-choice label {
+    display: block; padding: 1rem;
+    border: 2px solid var(--color-grey-medium);
+    border-radius: var(--border-radius); cursor: pointer;
+    transition: all 0.3s ease; width: 100%; text-align: center;
+}
+.radio-choice input[type="radio"]:checked + label {
+    border-color: var(--color-primary);
+    background-color: rgba(204, 0, 0, 0.05);
+    color: var(--color-primary); font-weight: bold;
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+.radio-choice label:hover { border-color: var(--color-secondary); }
+
+/* --- 10. Footer --- */
+.main-footer {
+    background-color: var(--color-secondary);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 3rem 1.5rem; margin-top: 3rem;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem; max-width: 1100px; margin: 0 auto;
+}
+.footer-grid h4 { color: var(--color-light); }
+.footer-grid a { color: rgba(255, 255, 255, 0.8); }
+.footer-grid a:hover { color: var(--color-light); }
+
+/* --- 11. Animation --- */
+.fade-in {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }

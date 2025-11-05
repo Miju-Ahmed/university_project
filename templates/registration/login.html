@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="form-container">
+        <h1>Welcome Back</h1>
+        <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">Please log in to access your profile.</p>
+
+        {% if form.errors %}
+            <p style="color: red; text-align: center;">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Log In</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 1.5rem;">
+            Don't have an account? <a href="{% url 'register' %}">Create One</a>
+        </p>
+        <p style="text-align: center;">
+            Site Administrator? <a href="{% url 'admin:index' %}">Admin Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

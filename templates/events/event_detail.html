@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ event.title }}</h1>
+    <p><strong>When:</strong> {{ event.start_time|date:"F j, Y, P" }} to {{ event.end_time|date:"P" }}</p>
+    <p><strong>Where:</strong> {{ event.location }}</p>
+    
+    <h2>Details</h2>
+    <p>{{ event.description|linebreaks }}</p>
+    
+    <a href="{% url 'event_list' %}">&larr; Back to all events</a>
+{% endblock %}

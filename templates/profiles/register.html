@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Your Account{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="form-container">
+        <h1>Join Our University</h1>
+        <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">Create your account to enroll in courses and connect with our community.</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {# Display any non-field errors (e.g., "passwords don't match") at the top #}
+            {{ form.non_field_errors }}
+
+            {# --- User Role Selection --- #}
+            <fieldset class="form-fieldset">
+                <legend>{{ form.user_type.label }}</legend>
+                <div class="radio-group">
+                    {% for radio in form.user_type %}
+                        <div class="radio-choice">
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form.user_type.errors }}
+            </fieldset>
+
+            {# --- Account Information --- #}
+            <fieldset class="form-fieldset">
+                <legend>Account Details</legend>
+                <p>
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                </p>
+                <p>
+                    <label for="{{ form.email.id_for_label }}">Email Address</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </p>
+            </fieldset>
+            
+            {# --- Personal Information --- #}
+            <fieldset class="form-fieldset">
+                <legend>Personal Information</legend>
+                <p>
+                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </p>
+                <p>
+                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </p>
+            </fieldset>
+
+            {# --- Password Fields --- #}
+            <fieldset class="form-fieldset">
+                <legend>Create Password</legend>
+                <p>
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    <small class="form-help-text">{{ form.password1.help_text|safe }}</small>
+                    {{ form.password1.errors }}
+                </p>
+                <p>
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </p>
+            </fieldset>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 1.5rem;">
+            Already have an account? <a href="{% url 'login' %}">Log In</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
